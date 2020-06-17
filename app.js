@@ -5,9 +5,17 @@ const cors = require("cors");
 const schema = require('./schema/schema')
 require("dotenv/config");
 
+const port = process.env.PORT || 3001;
+
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    // origin: "http://localhost:3000", // restrict calls to those this address
+    origin: "https://techworld-client.herokuapp.com/", // restrict calls to those this address
+    methods: "GET" // only allow GET requests
+  })
+);
 
 mongoose.connect(
   process.env.URI,
@@ -20,9 +28,9 @@ mongoose.connect(
 
 // for graphiql
 app.use('/graphql', graphqlHTTP({
-  schema: schema, 
+  schema: schema,
   graphiql: true
-}))
+}));
 
 app.listen(process.env.PORT, () =>
   console.log(`listening to port`, process.env.PORT)
