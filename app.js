@@ -12,7 +12,7 @@ const app = express();
 app.use(
   cors({
     // origin: "http://localhost:3000", // restrict calls to those this address
-    origin: "https://techworld-client.herokuapp.com/", // restrict calls to those this address
+    origin: "https://techworld-client.herokuapp.com/graphql", // restrict calls to those this address
     methods: "GET" // only allow GET requests
   })
 );
@@ -32,6 +32,6 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true
 }));
 
-app.listen(process.env.PORT, () =>
+app.listen(port, () =>
   console.log(`listening to port`, process.env.PORT)
 );
